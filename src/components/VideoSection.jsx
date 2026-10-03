@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { images } from '../images'
 import { Play } from './icons'
 import Blob from './ui/Blob'
+import Reveal from './ui/Reveal'
 
 export default function VideoSection() {
   const [playing, setPlaying] = useState(false)
@@ -10,13 +11,13 @@ export default function VideoSection() {
     <section className="relative isolate mx-auto max-w-5xl px-4 pb-24 sm:px-6">
       <Blob tone="pink" className="top-1/3 -left-24 size-[24rem]" />
       <Blob tone="peach" className="-right-24 bottom-10 size-[24rem]" />
-      <h2 className="text-center text-4xl leading-tight font-black uppercase sm:text-6xl">
+      <Reveal as="h2" className="text-center text-4xl leading-tight font-black uppercase sm:text-6xl">
         Votre <span className="accent">satisfaction</span>
         <br />
         ma priorité
-      </h2>
+      </Reveal>
 
-      <div className="relative mt-12 overflow-hidden rounded-2xl bg-ink">
+      <Reveal type="zoom" className="relative mt-12 overflow-hidden rounded-2xl bg-ink">
         {playing ? (
           <video
             src={images.videoFile}
@@ -51,7 +52,7 @@ export default function VideoSection() {
             </span>
           </button>
         )}
-      </div>
+      </Reveal>
     </section>
   )
 }

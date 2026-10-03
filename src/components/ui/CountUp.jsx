@@ -3,15 +3,13 @@ import { useEffect, useRef, useState } from 'react'
 // Compte de 0 jusqu'à `to` quand le nombre entre à l'écran
 export default function CountUp({ to, duration = 1400 }) {
   const ref = useRef(null)
-  const [value, setValue] = useState(0)
+  // Sans animation (préférence « réduire les animations »), on affiche directement la valeur finale
+  const [reduced] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  const [value, setValue] = useState(reduced ? to : 0)
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setValue(to)
-      return
-    }
+    if (!el || reduced) return
     let frame
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return
@@ -29,7 +27,7 @@ export default function CountUp({ to, duration = 1400 }) {
       observer.disconnect()
       cancelAnimationFrame(frame)
     }
-  }, [to, duration])
+  }, [to, duration, reduced])
 
   return <span ref={ref}>{value}</span>
 }

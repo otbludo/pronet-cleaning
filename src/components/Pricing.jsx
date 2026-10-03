@@ -1,6 +1,7 @@
 import { contact } from '../contact'
 import { Briefcase, Check, Home, Truck } from './icons'
 import Blob from './ui/Blob'
+import Reveal from './ui/Reveal'
 
 const plans = [
   {
@@ -25,15 +26,15 @@ export default function Pricing() {
     <section id="tarifs" className="relative isolate mx-auto max-w-5xl px-4 py-24 sm:px-6">
       <Blob tone="light" className="top-1/4 -left-64 size-[30rem]" />
       <Blob tone="lilac" className="-right-56 bottom-0 size-[26rem]" />
-      <h2 className="text-center text-4xl font-black uppercase sm:text-6xl">
+      <Reveal as="h2" className="text-center text-4xl font-black uppercase sm:text-6xl">
         Des formules <span className="accent">sur mesure</span>
-      </h2>
+      </Reveal>
 
       <div className="mt-14 grid gap-6 md:grid-cols-3">
-        {plans.map(({ name, Icon, features }) => (
+        {plans.map(({ name, Icon, features }, i) => (
+          <Reveal key={name} delay={i * 150}>
           <article
-            key={name}
-            className="flex flex-col rounded-2xl border border-neutral-200 p-6 transition hover:-translate-y-1 hover:shadow-xl"
+            className="flex h-full flex-col rounded-2xl border border-neutral-200 p-6 transition hover:-translate-y-1 hover:shadow-xl"
           >
             <h3 className="flex items-center gap-3 text-sm font-black uppercase">
               <span className="grid size-8 place-items-center rounded-md bg-brand-light text-brand">
@@ -54,11 +55,12 @@ export default function Pricing() {
             </ul>
             <a
               href={`mailto:${contact.email}?subject=${encodeURIComponent(`Demande de devis – ${name}`)}`}
-              className="mt-auto block w-full rounded-md bg-brand py-3 text-center text-xs font-black text-white uppercase transition hover:bg-brand-dark"
+              className="shine mt-auto block w-full rounded-md bg-brand py-3 text-center text-xs font-black text-white uppercase transition hover:bg-brand-dark"
             >
               Demander un devis
             </a>
           </article>
+          </Reveal>
         ))}
       </div>
     </section>

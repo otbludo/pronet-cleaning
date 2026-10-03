@@ -12,6 +12,11 @@ import VideoSection from './components/VideoSection'
 export default function App() {
   return (
     <>
+      {/* Barre de progression de lecture */}
+      <div
+        aria-hidden="true"
+        className="scroll-progress fixed inset-x-0 top-0 z-[60] h-1 origin-left scale-x-0 bg-gradient-to-r from-brand to-pink-300"
+      />
       <Navbar />
       <main className="overflow-x-clip">
         <Hero />

@@ -46,7 +46,7 @@ export default function Hero() {
               delay={700 + i * 120}
               className="flex items-center gap-2 font-script text-2xl text-brand"
             >
-              <Sparkle className="animate-twinkle size-3.5" style={{ animationDelay: `${i * 0.6}s` }} />
+              <Sparkle className="size-3.5 animate-[spin_6s_linear_infinite]" style={{ animationDelay: `${i * -2}s` }} />
               {v}
             </Reveal>
           ))}

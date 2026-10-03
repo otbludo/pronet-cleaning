@@ -7,7 +7,8 @@ export default function Reveal({ as: Tag = 'div', type = 'up', delay = 0, classN
   const [inView, setInView] = useState(false)
 
   useEffect(() => {
-    const el = ref.current
+    // Un élément masqué par son parent (rise, wipe) n'est jamais « visible » : on observe le parent
+    const el = type === 'rise' || type === 'wipe' ? ref.current?.parentElement : ref.current
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -20,7 +21,7 @@ export default function Reveal({ as: Tag = 'div', type = 'up', delay = 0, classN
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [])
+  }, [type])
 
   return (
     <Tag

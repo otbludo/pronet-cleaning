@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ArrowLeft, ArrowRight, Sparkle } from './icons'
 import Blob from './ui/Blob'
+import Reveal from './ui/Reveal'
 
 // Engagements tirés de la carte de visite.
 // Quand tu auras de vrais avis clients, tu pourras les afficher ici à la place.
@@ -32,7 +33,7 @@ export default function Testimonials() {
     <section className="relative isolate overflow-hidden py-24">
       <Blob tone="light" className="top-10 right-[10%] size-[26rem]" />
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[18rem_1fr]">
-        <div>
+        <Reveal type="left">
           <h2 className="text-5xl leading-[1.05] font-black uppercase sm:text-6xl">
             Mes
             <br />
@@ -58,9 +59,9 @@ export default function Testimonials() {
               <ArrowRight className="size-5" />
             </button>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="-mr-4 overflow-hidden sm:-mr-6 lg:mr-[calc((72rem-100vw)/2-1.5rem)]">
+        <Reveal type="right" delay={150} className="-mr-4 overflow-hidden sm:-mr-6 lg:mr-[calc((72rem-100vw)/2-1.5rem)]">
           <div
             className="flex gap-5 transition-transform duration-500"
             style={{ transform: `translateX(calc(-${index} * (18rem + 1.25rem)))` }}
@@ -80,7 +81,7 @@ export default function Testimonials() {
               </article>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   )

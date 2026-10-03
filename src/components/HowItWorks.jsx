@@ -1,6 +1,7 @@
 import { contact } from '../contact'
 import { Check } from './icons'
 import Blob from './ui/Blob'
+import Reveal from './ui/Reveal'
 
 const offers = [
   { label: 'Disponible', value: 'Lundi au vendredi' },
@@ -74,7 +75,8 @@ function WavyLine({ d, className }) {
 
 function Step({ step, last }) {
   return (
-    <div
+    <Reveal
+      type={step.side}
       className={`relative flex gap-5 md:w-1/2 md:flex-col md:items-center md:gap-0 md:pb-0 md:text-center ${
         last ? '' : 'pb-14'
       } ${step.side === 'right' ? 'md:ml-auto md:pl-10' : 'md:pr-10'}`}
@@ -103,7 +105,7 @@ function Step({ step, last }) {
         <h4 className="text-xl md:mt-6">{step.title}</h4>
         <p className="mt-3 max-w-xs text-sm text-neutral-600 md:mt-4">{step.text}</p>
       </div>
-    </div>
+    </Reveal>
   )
 }
 
@@ -113,19 +115,19 @@ export default function HowItWorks() {
       <Blob tone="pink" className="top-[40%] right-[-8rem] size-[28rem]" />
       <Blob tone="peach" className="bottom-24 left-[-6rem] size-[22rem]" />
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        <h2 className="text-center text-3xl sm:text-4xl">
+        <Reveal as="h2" className="text-center text-3xl sm:text-4xl">
           Ce que vous pouvez attendre
           <br />
           de <span className="font-serif">Pronet</span>
-        </h2>
+        </Reveal>
 
         <div className="mt-12 grid gap-10 sm:grid-cols-3 sm:gap-6">
-          {offers.map((o) => (
+          {offers.map((o, i) => (
+            <Reveal key={o.label} type="zoom" delay={i * 150} className={o.featured ? 'sm:-my-3' : ''}>
             <div
-              key={o.label}
-              className={`flex flex-col items-center rounded-2xl px-5 py-8 text-center transition hover:-translate-y-1 ${
+              className={`flex h-full flex-col items-center rounded-2xl px-5 py-8 text-center transition hover:-translate-y-1 ${
                 o.featured
-                  ? 'bg-brand text-white shadow-lg shadow-brand/30 sm:-my-3'
+                  ? 'bg-brand text-white shadow-lg shadow-brand/30'
                   : 'border border-neutral-200 bg-white shadow-sm'
               }`}
             >
@@ -145,6 +147,7 @@ export default function HowItWorks() {
               </p>
               <p className="mt-2 text-xl font-black sm:text-2xl">{o.value}</p>
             </div>
+            </Reveal>
           ))}
         </div>
 
@@ -175,7 +178,7 @@ export default function HowItWorks() {
             href={contact.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white transition hover:bg-brand-dark"
+            className="shine inline-block rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white transition hover:bg-brand-dark"
           >
             Réserver un ménage
           </a>
