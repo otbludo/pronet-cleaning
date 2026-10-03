@@ -1,9 +1,14 @@
 import { useState } from 'react'
-import { images } from '../images'
-import { Play } from './icons'
-import Blob from './ui/Blob'
-import Reveal from './ui/Reveal'
+import { images } from '../../data/images'
+import { Play } from '../icons'
+import Blob from '../ui/Blob'
+import Reveal from '../ui/Reveal'
 
+/**
+ * Section « Votre satisfaction, ma priorité » : vidéo de présentation.
+ * Une image d'aperçu avec bouton lecture est affichée ; la vidéo n'est chargée
+ * qu'au clic, ce qui allège le chargement initial de la page.
+ */
 export default function VideoSection() {
   const [playing, setPlaying] = useState(false)
 
@@ -21,7 +26,7 @@ export default function VideoSection() {
         {playing ? (
           <video
             src={images.videoFile}
-            poster={images.video}
+            poster={images.videoPoster}
             controls
             autoPlay
             playsInline
@@ -36,7 +41,7 @@ export default function VideoSection() {
             className="group relative block w-full"
           >
             <img
-              src={images.video}
+              src={images.videoPoster}
               alt="Salon propre et rangé"
               className="aspect-video w-full object-cover transition duration-500 group-hover:scale-105"
             />

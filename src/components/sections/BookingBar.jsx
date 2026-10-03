@@ -1,10 +1,14 @@
-import { contact } from '../contact'
-import { CalendarHeart } from './icons'
-import Blob from './ui/Blob'
-import Reveal from './ui/Reveal'
+import { contact } from '../../data/contact'
+import { CalendarHeart } from '../icons'
+import Blob from '../ui/Blob'
+import Reveal from '../ui/Reveal'
 
-// Les créneaux (30 min) et les réservations sont gérés par la page de réservation Google Agenda
-export default function ServiceBar() {
+/**
+ * Barre « Prendre rendez-vous » sous le Hero (ancre #contact).
+ * Le bouton ouvre la page de réservation Google Agenda, qui gère les créneaux
+ * de 30 min et ajoute chaque rendez-vous à l'agenda.
+ */
+export default function BookingBar() {
   return (
     <section id="contact" className="relative isolate mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <Blob tone="lilac" className="top-0 -right-24 h-48 w-[28rem]" />

@@ -1,8 +1,9 @@
-import { contact } from '../contact'
-import { Briefcase, Check, Home, Truck } from './icons'
-import Blob from './ui/Blob'
-import Reveal from './ui/Reveal'
+import { contact } from '../../data/contact'
+import { Briefcase, Check, Home, Truck } from '../icons'
+import Blob from '../ui/Blob'
+import Reveal from '../ui/Reveal'
 
+/** Formules proposées. Les tarifs sont communiqués sur devis. */
 const plans = [
   {
     name: 'Particuliers',
@@ -21,6 +22,10 @@ const plans = [
   },
 ]
 
+/**
+ * Section « Des formules sur mesure » (ancre #tarifs).
+ * Chaque bouton ouvre un e-mail de demande de devis pré-rempli avec le nom de la formule.
+ */
 export default function Pricing() {
   return (
     <section id="tarifs" className="relative isolate mx-auto max-w-5xl px-4 py-24 sm:px-6">

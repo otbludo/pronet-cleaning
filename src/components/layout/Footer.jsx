@@ -1,8 +1,9 @@
-import { contact } from '../contact'
-import { ArrowUpRight, Clock, Mail, Phone } from './icons'
+import { contact } from '../../data/contact'
+import { ArrowUpRight, Clock, Mail, Phone } from '../icons'
+import Reveal from '../ui/Reveal'
 import Logo from './Logo'
-import Reveal from './ui/Reveal'
 
+/** Liens de la colonne « Navigation » (ancres des sections de la page). */
 const links = [
   { label: 'Accueil', href: '#accueil' },
   { label: 'Prendre rendez-vous', href: '#contact' },
@@ -10,18 +11,24 @@ const links = [
   { label: 'Formules', href: '#tarifs' },
 ]
 
+/** Lignes de la colonne « Contact » ; sans `href`, la ligne n'est pas cliquable. */
 const infos = [
   { Icon: Phone, label: contact.phone, href: contact.phoneHref },
   { Icon: Mail, label: contact.email, href: `mailto:${contact.email}` },
   { Icon: Clock, label: contact.hours },
 ]
 
+/**
+ * Pied de page : bandeau de réservation, colonnes (présentation, navigation, contact),
+ * mentions et grand logo « Pronet » coupé à mi-hauteur.
+ */
 export default function Footer() {
   return (
     <footer className="overflow-hidden bg-ink text-white">
       <div className="mx-auto max-w-6xl px-4 pt-16 sm:px-6">
-        {/* Appel à l'action */}
+        {/* Bandeau d'appel à l'action : réservation Google Agenda ou appel */}
         <Reveal type="zoom" className="relative flex flex-col items-start justify-between gap-8 overflow-hidden rounded-3xl bg-brand p-8 shadow-2xl shadow-brand/20 md:flex-row md:items-center md:p-12">
+          {/* Cercles décoratifs */}
           <span className="pointer-events-none absolute -top-20 -right-10 size-64 rounded-full bg-white/10" />
           <span className="pointer-events-none absolute -bottom-24 left-1/3 size-56 rounded-full bg-white/10" />
           <div className="relative">
@@ -52,7 +59,7 @@ export default function Footer() {
           </div>
         </Reveal>
 
-        {/* Colonnes */}
+        {/* Colonnes : présentation, navigation, contact */}
         <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.2fr]">
           <Reveal>
             <Logo light />
@@ -96,15 +103,16 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Mentions */}
       <div className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
         <p className="border-t border-white/10 py-5 text-center text-xs tracking-wider text-neutral-500 uppercase">
           © {new Date().getFullYear()} Pronet · Tous droits réservés
         </p>
       </div>
 
-      {/* Grand logo coupé à mi-hauteur par le bas de page */}
+      {/* Grand logo coupé à mi-hauteur par le bas de page (hauteur visible : h-[13vw] / lg:h-[10rem]).
+          Les lettres montent une à une quand le bas de page apparaît. */}
       <div aria-hidden="true" className="h-[13vw] overflow-hidden lg:h-[10rem]">
-        {/* Les lettres montent une à une quand le bas de page apparaît */}
         <p className="text-center font-serif text-[24vw] leading-[0.85] tracking-tight text-white/95 select-none lg:text-[19rem]">
           {'Pronet'.split('').map((letter, i) => (
             <Reveal

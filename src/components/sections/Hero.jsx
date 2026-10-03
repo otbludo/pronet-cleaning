@@ -1,15 +1,23 @@
-import { contact } from '../contact'
-import { images } from '../images'
-import { Phone, Quote, Sparkle } from './icons'
-import Blob from './ui/Blob'
-import Reveal from './ui/Reveal'
+import { contact } from '../../data/contact'
+import { images } from '../../data/images'
+import { Phone, Quote, Sparkle } from '../icons'
+import Blob from '../ui/Blob'
+import Reveal from '../ui/Reveal'
 
+/** Valeurs mises en avant à gauche du portrait. */
+const values = ['Propreté', 'Confiance', 'Qualité']
+
+/**
+ * Section d'accueil : titre principal, portrait détouré et appel téléphonique.
+ * Les éléments apparaissent en séquence au chargement (délais croissants).
+ */
 export default function Hero() {
   return (
     <section id="accueil" className="relative isolate mx-auto max-w-6xl px-4 pt-4 sm:px-6">
       <Blob tone="light" className="top-24 -left-56 size-[30rem]" />
       <Blob tone="peach" className="-top-10 -right-48 size-[26rem]" />
-      {/* Chaque ligne du titre monte depuis un masque ; un trait se dessine sous « soigné » */}
+      {/* Chaque ligne du titre monte depuis un masque (span en overflow-hidden) ;
+          un trait se dessine ensuite sous « soigné ». */}
       <h1 className="relative z-10 text-5xl leading-[1.05] font-black uppercase sm:text-7xl lg:text-[5.5rem]">
         <span className="-mb-[0.2em] block overflow-hidden pb-[0.2em]">
           <Reveal as="span" type="rise" className="block">
@@ -38,7 +46,7 @@ export default function Hero() {
       <div className="relative mt-6 grid items-center gap-8 lg:-mt-16 lg:grid-cols-[1fr_2fr_1fr]">
         {/* Valeurs */}
         <div className="order-2 flex flex-col gap-2 justify-self-start lg:order-1 lg:-mt-24">
-          {['Propreté', 'Confiance', 'Qualité'].map((v, i) => (
+          {values.map((v, i) => (
             <Reveal
               key={v}
               as="span"
@@ -46,15 +54,19 @@ export default function Hero() {
               delay={700 + i * 120}
               className="flex items-center gap-2 font-script text-2xl text-brand"
             >
-              <Sparkle className="size-3.5 animate-[spin_6s_linear_infinite]" style={{ animationDelay: `${i * -2}s` }} />
+              {/* Délai négatif : chaque étoile démarre à un angle différent */}
+              <Sparkle
+                className="size-3.5 animate-[spin_6s_linear_infinite] motion-reduce:animate-none"
+                style={{ animationDelay: `${i * -2}s` }}
+              />
               {v}
             </Reveal>
           ))}
         </div>
 
-        {/* Image centrale */}
+        {/* Portrait : forme rose animée derrière, tête qui dépasse,
+            fondu vers le blanc en bas (le masque s'applique aux deux) */}
         <div className="order-1 lg:order-2 lg:pt-20">
-          {/* Forme douce derrière la photo, la tête dépasse ; le fondu du bas s'applique aux deux */}
           <div className="relative mx-auto w-fit [mask-image:linear-gradient(to_bottom,black_70%,transparent)]">
             <Reveal type="zoom" delay={250} className="absolute inset-x-2 top-[24%] bottom-0">
               <div className="animate-morph size-full rounded-[58%_42%_50%_50%/48%_52%_48%_52%] bg-brand-light" />
@@ -69,7 +81,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Texte + appel */}
+        {/* Accroche + appel téléphonique */}
         <Reveal type="right" delay={850} className="relative order-3 flex flex-col gap-10">
           <Quote className="absolute -top-16 right-0 size-40 text-brand-light" />
           <p className="relative text-lg leading-snug uppercase">

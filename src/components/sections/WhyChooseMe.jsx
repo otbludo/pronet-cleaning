@@ -1,10 +1,20 @@
-import { contact } from '../contact'
-import { images } from '../images'
-import { ArrowUpRight, Phone } from './icons'
-import Blob from './ui/Blob'
-import Reveal from './ui/Reveal'
-import CountUp from './ui/CountUp'
+import { contact } from '../../data/contact'
+import { images } from '../../data/images'
+import { ArrowUpRight, Phone } from '../icons'
+import Blob from '../ui/Blob'
+import CountUp from '../ui/CountUp'
+import Reveal from '../ui/Reveal'
 
+/**
+ * Carte blanche : photo en haut, chiffre clé, intitulé et description.
+ *
+ * @param {object} props
+ * @param {string} props.src Chemin de la photo.
+ * @param {string} props.alt Texte alternatif de la photo.
+ * @param {React.ReactNode} props.value Chiffre clé (ex. <CountUp to={5} />).
+ * @param {string} props.label Intitulé sous le chiffre.
+ * @param {string} props.text Description.
+ */
 function PhotoCard({ src, alt, value, label, text }) {
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-neutral-900/5">
@@ -24,8 +34,13 @@ function PhotoCard({ src, alt, value, label, text }) {
   )
 }
 
-export default function TopChoice() {
+/**
+ * Section « Pourquoi me choisir ? » : deux cartes photo avec chiffres animés,
+ * encadrant une carte rose mise en avant (disponibilité + appel).
+ */
+export default function WhyChooseMe() {
   return (
+    // Le fond passe progressivement du blanc au gris sur les 14 premiers rem
     <section className="relative isolate bg-[linear-gradient(to_bottom,white,var(--color-neutral-100)_14rem)] py-24">
       <Blob tone="light" className="top-1/2 left-[8%] size-[24rem]" />
       <Blob tone="lilac" className="right-[6%] bottom-10 size-[22rem]" />
@@ -39,7 +54,7 @@ export default function TopChoice() {
         <div className="mt-16 grid gap-6 md:grid-cols-3">
           <Reveal>
             <PhotoCard
-              src={images.choice1}
+              src={images.whyServices}
               alt="Nettoyage de canapé"
               value={<CountUp to={5} />}
               label="Prestations proposées"
@@ -47,7 +62,7 @@ export default function TopChoice() {
             />
           </Reveal>
 
-          {/* Carte mise en avant */}
+          {/* Carte mise en avant, légèrement plus haute que ses voisines (md:-my-4) */}
           <Reveal delay={150} className="md:-my-4">
           <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-brand p-7 text-white shadow-lg shadow-brand/30">
             <span className="pointer-events-none absolute -top-16 -right-16 size-56 rounded-full bg-white/10" />
@@ -74,7 +89,7 @@ export default function TopChoice() {
 
           <Reveal delay={300}>
             <PhotoCard
-              src={images.choice2}
+              src={images.whyContact}
               alt="Aspirateur"
               value={<CountUp to={1} />}
               label="Interlocutrice dédiée"

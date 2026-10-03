@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { ArrowLeft, ArrowRight, Sparkle } from './icons'
-import Blob from './ui/Blob'
-import Reveal from './ui/Reveal'
+import { ArrowLeft, ArrowRight, Sparkle } from '../icons'
+import Blob from '../ui/Blob'
+import Reveal from '../ui/Reveal'
 
-// Engagements tirés de la carte de visite.
-// Quand tu auras de vrais avis clients, tu pourras les afficher ici à la place.
+/**
+ * Engagements repris de la carte de visite.
+ * Ce carrousel peut accueillir plus tard de vrais avis clients, avec la même structure.
+ */
 const items = [
   {
     title: 'Propreté',
@@ -24,9 +26,11 @@ const items = [
   },
 ]
 
-export default function Testimonials() {
+/** Section « Mes engagements » : carrousel de cartes avec boutons précédent / suivant. */
+export default function Commitments() {
   const [index, setIndex] = useState(0)
   const total = items.length
+  // Navigation circulaire : après la dernière carte, on revient à la première
   const go = (step) => setIndex((i) => (i + step + total) % total)
 
   return (
@@ -61,6 +65,7 @@ export default function Testimonials() {
           </div>
         </Reveal>
 
+        {/* Le rail déborde jusqu'au bord droit de l'écran ; chaque pas = largeur d'une carte (18rem) + espace (1.25rem) */}
         <Reveal type="right" delay={150} className="-mr-4 overflow-hidden sm:-mr-6 lg:mr-[calc((72rem-100vw)/2-1.5rem)]">
           <div
             className="flex gap-5 transition-transform duration-500"

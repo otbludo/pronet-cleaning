@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
-import { contact } from '../contact'
-import { CalendarHeart, CloseSoft, HomeHeart, MailHeart, Phone, SprayShine, TagHeart } from './icons'
+import { useCallback, useEffect, useState } from 'react'
+import { contact } from '../../data/contact'
+import { CalendarHeart, CloseSoft, HomeHeart, MailHeart, Phone, SprayShine, TagHeart } from '../icons'
+import Blob from '../ui/Blob'
 import Logo from './Logo'
-import Blob from './ui/Blob'
 
+/** Liens de navigation : chaque `href` correspond à l'id d'une section de la page. */
 const links = [
   { label: 'Accueil', href: '#accueil', Icon: HomeHeart },
   { label: 'Demander un devis', href: '#contact', Icon: CalendarHeart },
@@ -11,7 +12,10 @@ const links = [
   { label: 'Formules', href: '#tarifs', Icon: TagHeart },
 ]
 
-// Section actuellement visible, pour surligner le lien correspondant
+/**
+ * Renvoie l'ancre de la section actuellement au centre de l'écran,
+ * pour surligner le lien correspondant dans le menu.
+ */
 function useActiveSection() {
   const [active, setActive] = useState(links[0].href)
   useEffect(() => {
@@ -19,6 +23,7 @@ function useActiveSection() {
       (entries) => {
         entries.forEach((e) => e.isIntersecting && setActive(`#${e.target.id}`))
       },
+      // Bande étroite au milieu de l'écran : une seule section y est présente à la fois
       { rootMargin: '-45% 0px -50% 0px' },
     )
     links.forEach((l) => {
@@ -30,8 +35,11 @@ function useActiveSection() {
   return active
 }
 
+/**
+ * Menu latéral mobile (masqué à partir de l'écran « lg »).
+ * Pendant l'ouverture, la page ne défile plus et la touche Échap ferme le menu.
+ */
 function Sidebar({ open, onClose, active }) {
-  // Bloque le scroll de la page et ferme avec Échap
   useEffect(() => {
     if (!open) return
     const onKey = (e) => e.key === 'Escape' && onClose()
@@ -45,6 +53,7 @@ function Sidebar({ open, onClose, active }) {
 
   return (
     <div className={`fixed inset-0 z-50 lg:hidden ${open ? '' : 'pointer-events-none'}`} aria-hidden={!open}>
+      {/* Voile sombre : un clic en dehors du menu le ferme */}
       <div
         onClick={onClose}
         className={`absolute inset-0 bg-ink/40 backdrop-blur-[2px] transition-opacity duration-300 ${
@@ -101,6 +110,7 @@ function Sidebar({ open, onClose, active }) {
           })}
         </nav>
 
+        {/* Contact rapide en bas du menu */}
         <div className="relative mt-auto border-t border-neutral-100 p-5">
           <div className="flex items-center gap-3">
             <span className="grid size-11 shrink-0 place-items-center rounded-full bg-ink font-serif text-lg text-white">
@@ -133,14 +143,18 @@ function Sidebar({ open, onClose, active }) {
   )
 }
 
+/** En-tête du site : logo, navigation (bureau) ou bouton de menu (mobile), et contact rapide. */
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const active = useActiveSection()
+  // Fonction stable : évite de réinstaller les écouteurs du menu à chaque rendu
+  const closeMenu = useCallback(() => setOpen(false), [])
 
   return (
     <header className="relative mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-6">
       <Logo />
 
+      {/* Navigation bureau */}
       <nav className="hidden items-center gap-8 text-xs font-bold tracking-wide uppercase lg:flex">
         {links.map((l) => (
           <a
@@ -170,6 +184,7 @@ export default function Navbar() {
         </a>
       </div>
 
+      {/* Bouton « burger » mobile */}
       <button
         onClick={() => setOpen(true)}
         aria-label="Ouvrir le menu"
@@ -181,7 +196,7 @@ export default function Navbar() {
         <span className="h-0.5 w-4 self-end rounded bg-ink" />
       </button>
 
-      <Sidebar open={open} onClose={() => setOpen(false)} active={active} />
+      <Sidebar open={open} onClose={closeMenu} active={active} />
     </header>
   )
 }

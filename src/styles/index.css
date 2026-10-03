@@ -1,0 +1,174 @@
+/*
+ * Styles globaux du site Pronet.
+ *
+ * Tailwind CSS v4 : la charte (couleurs, polices) est déclarée dans @theme et
+ * devient automatiquement disponible en classes (bg-brand, text-ink, font-script…).
+ * Ce fichier contient aussi les animations qui ne s'expriment pas en classes Tailwind.
+ */
+@import "tailwindcss";
+
+/* ========================================================================== */
+/*  Charte graphique                                                           */
+/* ========================================================================== */
+
+@theme {
+  /* Couleurs */
+  --color-brand: #e2457a;       /* rose principal : boutons, accents */
+  --color-brand-dark: #c52f63;  /* survol des boutons */
+  --color-brand-light: #fbe4ec; /* fonds doux, pastilles */
+  --color-ink: #1d1a1c;         /* texte et pied de page */
+
+  /* Polices (chargées depuis Google Fonts dans index.html) */
+  --font-sans: "Lato", system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-script: "Dancing Script", cursive;
+}
+
+/* Mot d'accent manuscrit dans les titres (ex. « soigné », « choisir ») */
+@utility accent {
+  font-family: var(--font-script);
+  font-weight: 700;
+  font-style: normal;
+  text-transform: none;
+  color: var(--color-brand);
+}
+
+/* ========================================================================== */
+/*  Base                                                                       */
+/* ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white font-sans text-ink antialiased;
+}
+
+/* ========================================================================== */
+/*  Apparitions au défilement — piloté par components/ui/Reveal.jsx            */
+/*  Le composant pose data-reveal="<type>" puis ajoute .is-in à l'entrée à     */
+/*  l'écran ; le délai de chaque élément est passé via la variable --d.        */
+/* ========================================================================== */
+
+[data-reveal] {
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition:
+    opacity 0.9s var(--ease),
+    transform 1s var(--ease),
+    filter 0.9s var(--ease),
+    clip-path 1.2s cubic-bezier(0.7, 0, 0.2, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+[data-reveal='up'] { opacity: 0; transform: translateY(3rem); }
+[data-reveal='left'] { opacity: 0; transform: translateX(-4rem); }
+[data-reveal='right'] { opacity: 0; transform: translateX(4rem); }
+[data-reveal='zoom'] { opacity: 0; transform: scale(0.85); filter: blur(8px); }
+/* Ligne de titre qui monte depuis un masque (parent en overflow-hidden) */
+[data-reveal='rise'] { transform: translateY(110%) rotate(2deg); }
+/* Photo dévoilée comme un rideau, avec un léger dézoom */
+[data-reveal='wipe'] { clip-path: inset(100% 0 0 0); transform: scale(1.15); }
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  clip-path: inset(0);
+}
+
+/* ========================================================================== */
+/*  Animations décoratives                                                     */
+/* ========================================================================== */
+
+/* Trait « dessiné à la main » sous un mot (le <path> doit avoir pathLength="1") */
+.draw-line path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.1s 0.9s cubic-bezier(0.6, 0, 0.2, 1) forwards;
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Taches de fond qui dérivent lentement (durée réglée par --drift, voir Blob.jsx) */
+.animate-drift {
+  animation: drift var(--drift, 18s) ease-in-out infinite alternate;
+}
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(3rem, -2rem) scale(1.1); }
+  100% { transform: translate(-2rem, 2.5rem) scale(0.95); }
+}
+
+/* Forme organique qui se déforme (derrière le portrait du Hero) */
+.animate-morph {
+  animation: morph 9s ease-in-out infinite;
+}
+@keyframes morph {
+  0%, 100% { border-radius: 58% 42% 50% 50% / 48% 52% 48% 52%; }
+  33% { border-radius: 45% 55% 40% 60% / 55% 40% 60% 45%; }
+  66% { border-radius: 60% 40% 55% 45% / 42% 58% 45% 55%; }
+}
+
+/* Reflet lumineux qui balaie un bouton au survol */
+.shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.shine::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 -60%;
+  width: 50%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.45), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+.shine:hover::after {
+  animation: shine 0.9s ease;
+}
+@keyframes shine {
+  to { left: 130%; }
+}
+
+/* Barre de progression de lecture : uniquement sur les navigateurs compatibles
+   (Chrome, Edge…) ; ailleurs elle reste simplement invisible. */
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: progress linear both;
+    animation-timeline: scroll(root);
+  }
+  @keyframes progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
+
+/* ========================================================================== */
+/*  Accessibilité : préférence « réduire les animations »                      */
+/*  Tout le contenu s'affiche directement, sans mouvement.                     */
+/* ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-drift,
+  .animate-morph,
+  .shine:hover::after {
+    animation: none;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    clip-path: none;
+    transition: none;
+  }
+  .draw-line path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

@@ -1,9 +1,20 @@
-import { images } from '../images'
-import { ArrowUpRight } from './icons'
-import Blob from './ui/Blob'
-import Reveal from './ui/Reveal'
+import { images } from '../../data/images'
+import { ArrowUpRight } from '../icons'
+import Blob from '../ui/Blob'
+import Reveal from '../ui/Reveal'
 
-function WorkCard({ img, index, title, className = '', imgClass = '', delay = 0 }) {
+/**
+ * Photo d'une prestation avec sa légende numérotée.
+ *
+ * @param {object} props
+ * @param {string} props.img Chemin de l'image.
+ * @param {string} props.index Numéro affiché dans la légende (ex. "01").
+ * @param {string} props.title Nom de la prestation (sert aussi de texte alternatif).
+ * @param {string} [props.className] Classes du bloc <figure>.
+ * @param {string} [props.imgClass] Classes de l'image (format, hauteur).
+ * @param {number} [props.delay] Délai d'apparition en millisecondes.
+ */
+function ServiceCard({ img, index, title, className = '', imgClass = '', delay = 0 }) {
   return (
     <figure className={className}>
       {/* La photo se dévoile comme un rideau */}
@@ -18,7 +29,8 @@ function WorkCard({ img, index, title, className = '', imgClass = '', delay = 0 
   )
 }
 
-export default function OurWork() {
+/** Section « Mes prestations » (ancre #prestations) : galerie des types de ménage. */
+export default function Services() {
   return (
     <section id="prestations" className="relative isolate mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <Blob tone="pink" className="top-1/3 -right-64 size-[34rem]" />
@@ -36,15 +48,15 @@ export default function OurWork() {
       </Reveal>
 
       <div className="mt-14 grid gap-8 md:grid-cols-[1fr_2fr]">
-        <WorkCard
-          img={images.commercial}
+        <ServiceCard
+          img={images.serviceOffice}
           index="01"
           title="Bureaux"
           className="md:mt-6"
           imgClass="aspect-[4/5] md:aspect-auto md:h-[30rem]"
         />
-        <WorkCard
-          img={images.regular}
+        <ServiceCard
+          img={images.serviceHome}
           index="02"
           title="Maison & appartement"
           delay={200}
@@ -54,13 +66,14 @@ export default function OurWork() {
       </div>
 
       <div className="mt-10 grid gap-8 md:grid-cols-[2fr_1fr]">
-        <WorkCard
-          img={images.kitchen}
+        <ServiceCard
+          img={images.serviceRenovation}
           index="03"
           title="Fin de chantier & déménagement"
           className="md:max-w-[36rem]"
           imgClass="aspect-[16/10]"
         />
+        {/* Raccourci vers les formules */}
         <Reveal type="zoom" delay={200} className="self-center justify-self-end">
         <a
           href="#tarifs"

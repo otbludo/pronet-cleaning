@@ -1,14 +1,16 @@
-import { contact } from '../contact'
-import { Check } from './icons'
-import Blob from './ui/Blob'
-import Reveal from './ui/Reveal'
+import { contact } from '../../data/contact'
+import { Check } from '../icons'
+import Blob from '../ui/Blob'
+import Reveal from '../ui/Reveal'
 
+/** Cartes d'engagement en haut de section ; `featured` met la carte en avant (fond rose). */
 const offers = [
   { label: 'Disponible', value: 'Lundi au vendredi' },
   { label: 'Particuliers & pros', value: 'Service sur mesure', featured: true },
   { label: 'Ménage complet', value: 'Fin de chantier' },
 ]
 
+/** Style commun des pictogrammes des étapes. */
 const icon = {
   fill: 'none',
   stroke: 'currentColor',
@@ -18,6 +20,10 @@ const icon = {
   className: 'size-8',
 }
 
+/**
+ * Étapes du parcours client.
+ * `side` : côté où l'étape s'affiche sur ordinateur, et direction de son apparition.
+ */
 const steps = [
   {
     title: '1. Contactez-moi',
@@ -54,6 +60,7 @@ const steps = [
   },
 ]
 
+/** Ligne pointillée ondulée reliant les étapes (version ordinateur). */
 function WavyLine({ d, className }) {
   return (
     <svg
@@ -73,6 +80,11 @@ function WavyLine({ d, className }) {
   )
 }
 
+/**
+ * Une étape : pictogramme, titre et texte.
+ * Sur mobile, les étapes sont empilées et reliées par un trait ondulé ;
+ * sur ordinateur, elles alternent à gauche et à droite de la ligne centrale.
+ */
 function Step({ step, last }) {
   return (
     <Reveal
@@ -109,6 +121,7 @@ function Step({ step, last }) {
   )
 }
 
+/** Section « Ce que vous pouvez attendre de Pronet » + « Comment ça marche ? ». */
 export default function HowItWorks() {
   return (
     <section className="relative isolate bg-gradient-to-b from-neutral-100 to-white py-24">
