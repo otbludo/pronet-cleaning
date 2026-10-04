@@ -1,6 +1,5 @@
 import Footer from './components/layout/Footer'
 import Navbar from './components/layout/Navbar'
-import BookingBar from './components/sections/BookingBar'
 import Commitments from './components/sections/Commitments'
 import Hero from './components/sections/Hero'
 import HowItWorks from './components/sections/HowItWorks'
@@ -27,7 +26,6 @@ export default function App() {
       {/* overflow-x-clip : les décors qui débordent ne créent pas de défilement horizontal */}
       <main className="overflow-x-clip">
         <Hero />
-        <BookingBar />
         <Services />
         <WhyChooseMe />
         <HowItWorks />

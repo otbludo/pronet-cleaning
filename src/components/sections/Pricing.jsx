@@ -3,11 +3,14 @@ import { Briefcase, Check, Home, Truck } from '../icons'
 import Blob from '../ui/Blob'
 import Reveal from '../ui/Reveal'
 
-/** Formules proposées. Les tarifs sont communiqués sur devis. */
+/** Formules proposées. Sans `price`, le tarif est communiqué sur devis. */
 const plans = [
   {
     name: 'Particuliers',
     Icon: Home,
+    price: '25 €',
+    unit: '/ heure',
+    note: 'Paiement en CESU +',
     features: ['Maison', 'Appartement', 'Ménage régulier ou ponctuel'],
   },
   {
@@ -36,7 +39,7 @@ export default function Pricing() {
       </Reveal>
 
       <div className="mt-14 grid gap-6 md:grid-cols-3">
-        {plans.map(({ name, Icon, features }, i) => (
+        {plans.map(({ name, Icon, price, unit, note, features }, i) => (
           <Reveal key={name} delay={i * 150}>
           <article
             className="flex h-full flex-col rounded-2xl border border-neutral-200 p-6 transition hover:-translate-y-1 hover:shadow-xl"
@@ -48,8 +51,10 @@ export default function Pricing() {
               {name}
             </h3>
             <p className="mt-5">
-              <span className="text-3xl font-black">Sur devis</span>
+              <span className="text-3xl font-black">{price ?? 'Sur devis'}</span>
+              {unit && <span className="ml-1 text-sm font-bold text-neutral-500">{unit}</span>}
             </p>
+            {note && <p className="mt-1 text-xs font-bold tracking-wide text-brand uppercase">{note}</p>}
             <ul className="mt-6 mb-7 space-y-3 text-sm text-neutral-600">
               {features.map((f) => (
                 <li key={f} className="flex items-center gap-3">

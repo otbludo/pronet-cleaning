@@ -185,17 +185,6 @@ export default function HowItWorks() {
             </div>
           </div>
         </div>
-
-        <div className="text-center">
-          <a
-            href={contact.bookingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shine inline-block rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white transition hover:bg-brand-dark"
-          >
-            Réserver un ménage
-          </a>
-        </div>
       </div>
     </section>
   )

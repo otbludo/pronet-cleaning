@@ -1,12 +1,11 @@
 import { contact } from '../../data/contact'
-import { ArrowUpRight, Clock, Mail, Phone } from '../icons'
+import { Clock, Mail, Phone } from '../icons'
 import Reveal from '../ui/Reveal'
 import Logo from './Logo'
 
 /** Liens de la colonne « Navigation » (ancres des sections de la page). */
 const links = [
   { label: 'Accueil', href: '#accueil' },
-  { label: 'Prendre rendez-vous', href: '#contact' },
   { label: 'Prestations', href: '#prestations' },
   { label: 'Formules', href: '#tarifs' },
 ]
@@ -19,14 +18,14 @@ const infos = [
 ]
 
 /**
- * Pied de page : bandeau de réservation, colonnes (présentation, navigation, contact),
+ * Pied de page : bandeau d'appel, colonnes (présentation, navigation, contact),
  * mentions et grand logo « Pronet » coupé à mi-hauteur.
  */
 export default function Footer() {
   return (
-    <footer className="overflow-hidden bg-ink text-white">
+    <footer id="contact" className="overflow-hidden bg-ink text-white">
       <div className="mx-auto max-w-6xl px-4 pt-16 sm:px-6">
-        {/* Bandeau d'appel à l'action : réservation Google Agenda ou appel */}
+        {/* Bandeau d'appel à l'action : appel */}
         <Reveal type="zoom" className="relative flex flex-col items-start justify-between gap-8 overflow-hidden rounded-3xl bg-brand p-8 shadow-2xl shadow-brand/20 md:flex-row md:items-center md:p-12">
           {/* Cercles décoratifs */}
           <span className="pointer-events-none absolute -top-20 -right-10 size-64 rounded-full bg-white/10" />
@@ -34,21 +33,10 @@ export default function Footer() {
           <div className="relative">
             <p className="font-script text-3xl">Envie d’un intérieur soigné&nbsp;?</p>
             <p className="mt-2 text-3xl leading-tight font-black uppercase sm:text-4xl">
-              Réservez votre créneau
+              Appelez-moi
             </p>
           </div>
           <div className="relative flex flex-wrap gap-3">
-            <a
-              href={contact.bookingUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="shine group flex items-center gap-3 rounded-full bg-white py-2 pr-2 pl-6 text-sm font-black text-brand uppercase transition hover:bg-brand-light"
-            >
-              Réserver
-              <span className="grid size-9 place-items-center rounded-full bg-brand text-white transition group-hover:rotate-45">
-                <ArrowUpRight className="size-4" />
-              </span>
-            </a>
             <a
               href={contact.phoneHref}
               className="flex items-center gap-2 rounded-full border border-white/50 px-6 py-3 text-sm font-black transition hover:bg-white/10"

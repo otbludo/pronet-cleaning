@@ -12,9 +12,4 @@ export const contact = {
   phoneHref: 'tel:+33656820934',
   email: 'fidelemabad@yahoo.fr',
   hours: 'Du lundi au vendredi',
-  /**
-   * Page de réservation Google Agenda (« agenda de prise de rendez-vous »).
-   * Google gère les créneaux libres et ajoute chaque réservation à l'agenda.
-   */
-  bookingUrl: 'https://calendar.app.google/CwXVJUByXghPznMb7',
 }
