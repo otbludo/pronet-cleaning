@@ -111,6 +111,16 @@ body {
   66% { border-radius: 60% 40% 55% 45% / 42% 58% 45% 55%; }
 }
 
+/* Léger flottement vertical (bulles et pastilles autour de la vidéo) ;
+   durée réglée par --float, départ décalé par animation-delay */
+.animate-float {
+  animation: float var(--float, 6s) ease-in-out infinite alternate;
+}
+@keyframes float {
+  from { transform: translateY(0) rotate(0deg); }
+  to { transform: translateY(-1.25rem) rotate(4deg); }
+}
+
 /* Reflet lumineux qui balaie un bouton au survol */
 .shine {
   position: relative;
@@ -156,6 +166,7 @@ body {
     scroll-behavior: auto;
   }
   .animate-drift,
+  .animate-float,
   .animate-morph,
   .shine:hover::after {
     animation: none;
