@@ -8,24 +8,24 @@
 
 /** Construit l'URL d'une photo Unsplash recadrée et optimisée à la largeur voulue. */
 const unsplash = (id, width = 1200) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&q=80`
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&q=80`;
 
 export const images = {
   /** Portrait détouré (fond transparent) affiché dans le Hero. */
-  hero: '/portrait-buste.png',
+  hero: "/portrait-buste.png",
 
   // Section « Mes prestations »
-  serviceOffice: '/pulverise.jpeg',
-  serviceHome: '/menagevitre.jpeg',
-  serviceRenovation: unsplash('1556911220-bff31c812dba', 1000),
+  serviceOffice: "/pulverise.jpeg",
+  serviceHome: "/menagevitre.jpeg",
+  serviceRenovation: unsplash("1556911220-bff31c812dba", 1000),
 
   // Section « Pourquoi me choisir ? »
-  whyServices: '/aspire.jpeg',
-  whyContact: unsplash('1527515637462-cff94eecc1ac', 500),
+  whyServices: "/aspire.jpeg",
+  whyContact: unsplash("1527515637462-cff94eecc1ac", 500),
 
   // Section vidéo
-  /** Image d'aperçu affichée avant la lecture. */
-  videoPoster: unsplash('1558317374-067fb5f30001', 1600),
-  /** Fichier vidéo lu au clic (à déposer dans `public/`, format MP4 conseillé). */
-  videoFile: '/video.mp4',
-}
+  /** Image d'aperçu affichée avant la lecture (image extraite de la vidéo). */
+  videoPoster: "/video-poster.jpg",
+  /** Fichier vidéo lu au clic (format vertical, MP4). */
+  videoFile: "/video.MOV",
+};

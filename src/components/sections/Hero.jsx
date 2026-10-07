@@ -36,11 +36,6 @@ export default function Hero() {
             </span>
           </Reveal>
         </span>
-        <span className="block overflow-hidden">
-          <Reveal as="span" type="rise" delay={150} className="block">
-            sans effort
-          </Reveal>
-        </span>
       </h1>
 
       <div className="relative mt-6 grid items-center gap-8 lg:-mt-16 lg:grid-cols-[1fr_2fr_1fr]">
