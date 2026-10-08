@@ -12,4 +12,6 @@ export const contact = {
   phoneHref: 'tel:+33656820934',
   email: 'fidelemabad@yahoo.fr',
   hours: 'Du lundi au vendredi',
+  /** Communes desservies (affichées avec la mention « et environs »). */
+  areas: ['Saulxures-sur-Moselotte', 'Cornimont', 'La Bresse', 'Ventron', 'Thiéfosse', 'Vagney'],
 }

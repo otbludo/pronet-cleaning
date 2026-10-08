@@ -1,5 +1,5 @@
 import { contact } from '../../data/contact'
-import { Clock, Mail, Phone } from '../icons'
+import { Clock, Mail, MapPin, Phone } from '../icons'
 import Reveal from '../ui/Reveal'
 import Logo from './Logo'
 
@@ -8,6 +8,7 @@ const links = [
   { label: 'Accueil', href: '#accueil' },
   { label: 'Prestations', href: '#prestations' },
   { label: 'Formules', href: '#tarifs' },
+  { label: 'Zone d’intervention', href: '#zone' },
 ]
 
 /** Lignes de la colonne « Contact » ; sans `href`, la ligne n'est pas cliquable. */
@@ -15,6 +16,7 @@ const infos = [
   { Icon: Phone, label: contact.phone, href: contact.phoneHref },
   { Icon: Mail, label: contact.email, href: `mailto:${contact.email}` },
   { Icon: Clock, label: contact.hours },
+  { Icon: MapPin, label: `${contact.areas.join(', ')} et environs` },
 ]
 
 /**

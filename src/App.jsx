@@ -4,13 +4,14 @@ import Commitments from './components/sections/Commitments'
 import Hero from './components/sections/Hero'
 import HowItWorks from './components/sections/HowItWorks'
 import Pricing from './components/sections/Pricing'
+import ServiceArea from './components/sections/ServiceArea'
 import Services from './components/sections/Services'
 import VideoSection from './components/sections/VideoSection'
 import WhyChooseMe from './components/sections/WhyChooseMe'
 
 /**
  * Page d'accueil (site une page) : les sections s'enchaînent dans l'ordre de lecture.
- * Les ancres (#accueil, #contact, #prestations, #tarifs) sont utilisées par la navigation.
+ * Les ancres (#accueil, #contact, #prestations, #tarifs, #zone) sont utilisées par la navigation.
  */
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
         <WhyChooseMe />
         <HowItWorks />
         <Pricing />
+        <ServiceArea />
         <VideoSection />
         <Commitments />
       </main>
